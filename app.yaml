@@ -1,0 +1,14 @@
+runtime: python313
+
+env_variables:
+  DJANGO_SETTINGS_MODULE: 'config.settings'
+  PYTHONUNBUFFERED: 'True'
+
+handlers:
+- url: /static
+  static_dir: staticfiles/
+
+- url: /.*
+  script: auto
+
+entrypoint: gunicorn -b :$PORT config.wsgi:application

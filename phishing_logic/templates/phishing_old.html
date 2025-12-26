@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing Detection</title>
+    {%load static %} 
+    <link href="{% static 'css/phishing.css' %}" rel="stylesheet">
+    <style>
+
+        :root{
+            font-size: 16px;
+        }
+
+        body {
+            font-family: "Open sans", sans-serif;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            height: calc(100vh - 30px);
+            background-color: #F7F6FF;
+        }
+
+     .main-container{
+        text-align: center;
+    margin: 20px;
+     }
+
+
+.phishing-container{
+    background-color: #ccccff;
+    width: 80%;
+    margin: 0 auto;
+    border: 2px solid #cec6c6;
+    padding: 30px;
+    border-radius: 10px;
+}
+input[type="button"]{
+    padding: 10px 55px;
+    background-color: #6666ff;
+    color: #fff;
+    border: 0;
+    margin-top: 20px;
+    font-weight: bold;
+    border-radius: 7px;
+    cursor: pointer;
+	width: 100 px;
+}
+.input-field{
+    border: 0;
+    border-radius: 3px;
+    height: 24px;
+    width: 300px;
+}
+.input-field:focus{
+    border: 1px solid #6666ff;
+}
+.title{
+   color: #230e5e;
+}
+.url span{
+    font-weight: bold;
+}
+.results-container{
+margin-top: 20px;
+
+
+}
+.results-container span{
+    text-decoration: underline;
+    font-weight: bold;
+    color: #3b0505;
+}
+.submit{
+    margin-left: 10px;
+
+}
+    
+
+    </style>
+  
+</head>
+<body>
+    <div class="main-container">
+        <div class="phishing-container">
+            <h2 class="title">Phishing Detection</h2>
+            Phishing is the most common technique used by hackers to access sensitive information about you. 
+            This could be your passwords, banking information, or card details. 
+            Potential victims might receive a tailored, expertly designed email which looks just like it’s from a trusted source.
+            You’ll be directed to a suspicious website that looks just like one you normally use, such as PayPal or their online bank. 
+            Once there, the hackers hope you’ll enter your sensitive information for the hackers to steal and use it for their own gain.
+            That’s why it’s so important to know how to tell whether a website is legit. 
+            That way, if you do find yourself on a dodgy website, you’ll be able to spot the signs and protect yourself from becoming a victim.
+            <h3>Phishing attacks have become an important threat in cyberspace. It exploits the vulnerabilities of the human end-users. Enter a site URL to check its legitimacy.</h3>
+           
+            <div>
+                
+                <form method="POST" enctype="multipart/form-data" action="prediction">
+                    <form action="{% url 'phishing' %}">
+                    {%csrf_token%}
+                 <span>Enter URL : </span><input class="input-field" placeholder="URL" type="text" name="urls">
+                <input class="Submit" type="submit" value="Submit" name="submit"> 
+            </form>
+        </form>
+        
+            </div>
+            
+            <div class="results-container"><span>Results</span>
+                
+                    <div>{{a}}</div>
+                
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
