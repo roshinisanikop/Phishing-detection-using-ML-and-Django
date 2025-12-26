@@ -1,66 +1,51 @@
-# Phishing-detection-using-ML-and-Django
+# Phishing Detection (ML + Django)
 
+Detects if a submitted URL is phishing or legitimate using a trained ML model.
 
-Detects if the url entered/pasted on to the site is a phishing site or legitimate site. 
+## Project Summary
+- Tokenize URLs with `nltk.RegexpTokenizer`, stem with Snowball, vectorize with `CountVectorizer`.
+- Trained multiple models; Logistic Regression reached ~96% accuracy.
+- Served via Django with a simple form UI and DB logging of checked URLs.
 
-An attempt to bring awareness to Cyber Phishing Attacks and prevent phishing attacks. 
+## Quickstart
+```bash
+# 1) Create and activate venv
+python3 -m venv .venv
+source .venv/bin/activate   # on Windows: .venv\Scripts\activate
 
-### Project Summary: 
+# 2) Install dependencies
+pip install --upgrade pip
+pip install -r requirements.txt
 
-  -Data Preprocessing involved gathering relevant tokens from the URLs dataset using RegexpTokenizer() method from the nltk method.
-  
-  -Yielded root words using Snowball which was then passed to a CountVectorizer function for further data cleaning. 
-  
-  -Implemented various ML algorithms like Decision Tree, Random Forest, and Logistic Regression on a unique dataset of which Logistic Regression proved to provide the    best accuracy of 96.19%.
-  
-  -Deployed the model using Django Framework.
-  
-  ## How to run it?
-  Firstly, you'll need a virtual environment to run this. 
-  
-  Why do we need a virtual environment?
-  
-  A virtual environment is a tool that helps to keep dependencies required by different projects separate by creating isolated python virtual environments for them. 
-  
-  So make sure to do this step by step in the console:
-  
-    - pip install virtualenv
-    
-    - cd env
-    
-    - cd scripts
-    
-    - ./activate
-    
-    - ### Install dependencies required:
-    
-      pip install
-      
-      - wordcloud (Word Cloud is a data visualization technique used for representing text data in which the size of each word indicates its frequency or importance.)
-      
-      - seaborn 
-      
-      - nltk (very important, this is how your url is broken down into tokens)
-      
-      - sklearn
-      
-      - pandas
-      
-      - db-sqlite3
-      
-    - run classification.py 
-    
-      - python classification.py
-      
-    - pip install django
-    
-    - and then finally to get your localhost/ server running
-    
-      - py manage.py runserver
-      
-  For views.py - Feel free to use either of the models - finalmodel.sav or model.sav.
-  
-  The model tests URLs that are unlisted on the dataset correctly as well. 
+# 3) Set required environment
+export SECRET_KEY="replace-me"   # required
+export DEBUG="True"              # optional, defaults to False
+
+# 4) Migrate database
+python manage.py migrate
+
+# 5) (Optional) Re-run feature extraction / demo
+python classification.py
+
+# 6) Run dev server
+python manage.py runserver
+```
+
+Key paths
+- Django project: [config](config)
+- Django app: [phishing_logic](phishing_logic)
+- Template: [phishing_logic/templates/phishing.html](phishing_logic/templates/phishing.html)
+- Static assets: [phishing_logic/statics](phishing_logic/statics)
+- Model file: `model.sav` (or `finalmodel.sav`) in repo root
+
+## Production and Deployment
+- Collect static: `python manage.py collectstatic --noinput`
+- Never commit secrets; `SECRET_KEY` must come from environment.
+- Deploy to Google App Engine: see [deployment.md](deployment.md).
+
+## Notes
+- SQLite is fine for demo.
+- Whitenoise serves static files in production.
   
   
       
