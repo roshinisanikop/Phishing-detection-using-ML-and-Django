@@ -36,7 +36,7 @@ Key paths
 - Django app: [phishing_logic](phishing_logic)
 - Template: [phishing_logic/templates/phishing.html](phishing_logic/templates/phishing.html)
 - Static assets: [phishing_logic/statics](phishing_logic/statics)
-- Model file: `model.sav` (or `finalmodel.sav`) in repo root
+- Model file: `models/model.sav` (fallback `models/finalmodel.sav`)
 
 ## Production and Deployment
 - Collect static: `python manage.py collectstatic --noinput`

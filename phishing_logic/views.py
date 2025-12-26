@@ -27,12 +27,14 @@ def prediction(request):
                 context['a'] = "Error: Please enter a valid URL"
                 return render(request, 'phishing.html', context)
             
-            # Load model from project root directory
-            model_path = Path(__file__).resolve().parent.parent / 'model.sav'
+            # Load model from models directory (prefers model.sav, falls back to finalmodel.sav)
+            models_dir = Path(__file__).resolve().parent.parent / 'models'
+            candidate_models = [models_dir / 'model.sav', models_dir / 'finalmodel.sav']
+            model_path = next((p for p in candidate_models if p.exists()), None)
             
-            if not model_path.exists():
-                logger.error(f"Model file not found at {model_path}")
-                context['a'] = "Error: ML model not found. Please ensure model.sav exists in the project root."
+            if not model_path:
+                logger.error(f"Model file not found in {models_dir}")
+                context['a'] = "Error: ML model not found. Please ensure model.sav exists in the models folder."
                 return render(request, 'phishing.html', context)
             
             # Load and run prediction

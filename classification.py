@@ -1,3 +1,4 @@
+from pathlib import Path
 import numpy as np # linear algebra
 import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 
@@ -59,8 +60,10 @@ for i in range(0, n):
     else:
         print("Phishing Site")
 
-#save model to disk
-filename='final_model.sav'
-joblib.dump(pipeline_ls,filename)
+# Save model to disk under models/
+models_dir = Path(__file__).resolve().parent / 'models'
+models_dir.mkdir(parents=True, exist_ok=True)
+filename = models_dir / 'model.sav'
+joblib.dump(pipeline_ls, filename)
 
     
